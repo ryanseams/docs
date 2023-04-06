@@ -62,11 +62,15 @@ In order to integrate Airship with Mixpanel for anonymous mobile audience identi
 
 ## Sync Types
 
-**For one-time exports:** Mixpanel will send a static export of users who currently qualify for the cohort. This is exported to Airship as a Tag Group that allows you to create an audience to target users. You will be able to name the Tag Group that appears in Airship. These names will only be added to the Tag Group with the Group Key called “mixpanel” (Group Keys are case sensitive).
+### One-Time Export
+
+Mixpanel will send a static export of users who currently qualify for the cohort. This is exported to Airship as a Tag Group that allows you to create an audience to target users. You will be able to name the Tag Group that appears in Airship. These names will only be added to the Tag Group with the Group Key called “mixpanel” (Group Keys are case sensitive).
 
 _It is not recommended to use the same tag name for two static exports, as users who qualified at each time of export will be included in the tag within Airship._
 
-**For dynamically syncing exports:** Every 15 minutes, Mixpanel will initiate a sync between the Mixpanel cohort and the Airship tag. At the time of the sync, Mixpanel will add the tag for newly-qualified users, and remove the tag for users who have exited the cohort. Users can move into and out of the cohort depending on if they meet the cohort criteria. Note that these tags only apply to the “mixpanel” Tag Group Key, which must be created within Airship.
+### Dynamic Sync
+
+Every 15 minutes, Mixpanel will initiate a sync between the Mixpanel cohort and the Airship tag. At the time of the sync, Mixpanel will add the tag for newly-qualified users, and remove the tag for users who have exited the cohort. Users can move into and out of the cohort depending on if they meet the cohort criteria. Note that these tags only apply to the “mixpanel” Tag Group Key, which must be created within Airship.
 
 ## Sending Mixpanel Cohorts to Airship
 
