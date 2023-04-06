@@ -23,6 +23,34 @@ If the setting below is enabled in Airship, you will see the error "Master secre
 
 ## Enable the Integration
 
+Follow these steps to enable the integration with Airship:
+
+1. Select **Integrations** under the **Data Management** tab in the top navigation bar of Mixpanel.
+
+![Integrations Image](https://raw.githubusercontent.com/ranic/mixpanel-docs/main/media/Other%20Bits/Cohort%20Syncs/integration-enable.png)
+
+2. From the Integrations page, select the Airship dropdown, and select **Connect**.
+
+![Airship 5 Image](https://raw.githubusercontent.com/ranic/mixpanel-docs/main/media/Other%20Bits/Cohort%20Syncs/Appcues/airship5.png)
+
+3. The connection uses one credential to authorize, API Key. Supply an **API token** generated from your **Appcues settings page** to establish the connection.
+
+4. The Airship integration will show a **Connected** tag in the UI once the connection establishes.
+
+## Matching Users between Airship and Mixpanel
+
+Users are matched between Airship and Mixpanel using the [Airship channel id](https://docs.airship.com/guides/airship/user-guide/channels-intro/#channel-ids). This value must be set as a Mixpanel user property named `$ios_urban_airship_channel_id` for iOS users or `$android_urban_airship_channel_id` for Android users. These values must match with the Airship channel id.
+    
+The recommendation would be to insert code after the user authenticates that sends a `people.set` operation to the `$android_urban_airship_channel_id` and `$ios_urban_airship_channel_id` properties respectively as string values, so they are stored in the Mixpanel profile. This could be when they sign up (or just log in if they already had an account). By setting the property each time the user authenticates you would ensure users who have signed up previous to this code changes also have it.
+
+>**Note:** SDK versions older than Android v5.9.6, Swift: v2.10.4, and Objective-C: v3.9.2 automatically created these properties. This has since been removed in favor of them being set according to your user's flow.
+
+Additionally, exports will send all user profiles to match against Airship's Named User system, which handles cross-platform identification. If you would like to specify a value to match a Mixpanel user profile to a Named User, you must add a user property, `$airship_named_user`, which will be sent to attempt matching (note you must set this value, the Airship SDK will not automatically declare it).
+
+Users without `$airship_named_user` user properties will instead have their distinct_id sent to Airship's Named User system - this route is intended for implementations where the same identifier value is used for both `distinct_id` (Mixpanel) and `named_user_id` (Airship). Note that for customers using identity merge, Mixpanel will send the canonical distinct ID, which may change over time. To ensure a consistent identifier is sent to Airship's Named User system, add the `$airship_named_user` property to the user's profile.
+
+## Export a Cohort
+
 In order to integrate Airship with Mixpanel for anonymous mobile audience identification, you will first need to install both the [Airship SDK](https://docs.urbanairship.com/platform/) and Mixpanel SDK in your application. Once you have done so, follow these steps:
 
 1. Go to the Airship Integrations User Interface and enter the [Airship All Access Token and App Key](https://docs.airship.com/guides/messaging/user-guide/project/bearer-tokens/), which allows Mixpanel to send data to the correct Airship project.
@@ -32,25 +60,13 @@ In order to integrate Airship with Mixpanel for anonymous mobile audience identi
     - A **one-time export** will add the new Airship tag to all users in the Mixpanel cohort at the time of the export. The new tag will be visible in Airship. 
     - A **dynamic sync** will add or remove a tag for users in the cohort every 15 minutes until the sync is disconnected. This means that every 15 minutes, the tag in Airship will update to reflect the current status of the Mixpanel cohort.
 
-## How does Mixpanel export data to Airship?
+## Sync Types
 
 **For one-time exports:** Mixpanel will send a static export of users who currently qualify for the cohort. This is exported to Airship as a Tag Group that allows you to create an audience to target users. You will be able to name the Tag Group that appears in Airship. These names will only be added to the Tag Group with the Group Key called “mixpanel” (Group Keys are case sensitive).
 
 _It is not recommended to use the same tag name for two static exports, as users who qualified at each time of export will be included in the tag within Airship._
 
 **For dynamically syncing exports:** Every 15 minutes, Mixpanel will initiate a sync between the Mixpanel cohort and the Airship tag. At the time of the sync, Mixpanel will add the tag for newly-qualified users, and remove the tag for users who have exited the cohort. Users can move into and out of the cohort depending on if they meet the cohort criteria. Note that these tags only apply to the “mixpanel” Tag Group Key, which must be created within Airship.
-
-## How are users matched between Airship and Mixpanel?
-
-Users are matched between Airship and Mixpanel using the [Airship channel id](https://docs.airship.com/guides/airship/user-guide/channels-intro/#channel-ids). This value must be set as a Mixpanel user property named `$ios_urban_airship_channel_id` for iOS users or `$android_urban_airship_channel_id` for Android users. These values must match with the Airship channel id.
-    
-The recommendation would be to insert code after the user authenticates that sends a `people.set` operation to the `$android_urban_airship_channel_id` and `$ios_urban_airship_channel_id` properties respectively as string values, so they are stored in the Mixpanel profile. This could be when they sign up (or just log in if they already had an account). By setting the property each time the user authenticates you would ensure users who have signed up previous to this code changes also have it.
-
->**Note:** SDK versions older than Android v5.9.6, Swift: v2.10.4, and Objective-C: v3.9.2 automatically created these properties. This has since been removed in favor of them being set according to your user's flow.
-
-Additionally, exports will send all user profiles to match against Airship's Named User system, which handles cross-platform identification. If you would like to specify a value to match a Mixpanel user profile to a Named User, you must add a user property, "$airship_named_user", which will be sent to attempt matching (note you must set this value, the Airship SDK will not automatically declare it).
-
-Users without `$airship_named_user` user properties will instead have their distinct_id sent to Airship's Named User system - this route is intended for implementations where the same identifier value is used for both distinct_id (Mixpanel) and named_user_id (Airship). Note that for customers using identity merge, Mixpanel will send the canonical distinct ID, which may change over time. To ensure a consistent identifier is sent to Airship's Named User system, add the `$airship_named_user` property to the user's profile.
 
 ## Sending Mixpanel Cohorts to Airship
 
