@@ -33,7 +33,7 @@ Follow these steps to enable the integration with Airship:
 
 ![Airship 5 Image](https://raw.githubusercontent.com/ryanseams/docs/ryanseams-cohorts-updates/media/Other%20Bits/Cohort%20Syncs/Airship/airship5.png)
 
-3. The connection uses one credential to authorize, API Key. Supply an **API token** generated from your **Appcues settings page** to establish the connection.
+3. The connection uses one credential to authorize, [Access Token](https://docs.airship.com/guides/messaging/user-guide/project/bearer-tokens/). Supply an **Access Token** generated from your **Airship settings page** to establish the connection.
 
 4. The Airship integration will show a **Connected** tag in the UI once the connection establishes.
 
