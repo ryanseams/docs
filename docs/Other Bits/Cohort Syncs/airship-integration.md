@@ -27,11 +27,11 @@ Follow these steps to enable the integration with Airship:
 
 1. Select **Integrations** under the **Data Management** tab in the top navigation bar of Mixpanel.
 
-![Integrations Image](https://raw.githubusercontent.com/ranic/mixpanel-docs/main/media/Other%20Bits/Cohort%20Syncs/integration-enable.png)
+![Integrations Image](https://raw.githubusercontent.com/ryanseams/docs/ryanseams-cohorts-updates/media/Other%20Bits/Cohort%20Syncs/integration-enable.png)
 
 2. From the Integrations page, select the Airship dropdown, and select **Connect**.
 
-![Airship 5 Image](https://raw.githubusercontent.com/ranic/mixpanel-docs/main/media/Other%20Bits/Cohort%20Syncs/Appcues/airship5.png)
+![Airship 5 Image](https://raw.githubusercontent.com/ryanseams/docs/ryanseams-cohorts-updates/media/Other%20Bits/Cohort%20Syncs/Airship/airship5.png)
 
 3. The connection uses one credential to authorize, API Key. Supply an **API token** generated from your **Appcues settings page** to establish the connection.
 
