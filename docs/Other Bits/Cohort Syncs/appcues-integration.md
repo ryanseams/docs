@@ -33,7 +33,7 @@ Follow these steps to enable the integration with Appcues:
 
 3. The connection uses one credential to authorize, API Key. Supply an **API token** generated from your **Appcues settings page** to establish the connection.
 
-3. The Appcues integration will show a **Connected** tag in the UI once the connection establishes.
+4. The Appcues integration will show a **Connected** tag in the UI once the connection establishes.
 
 ## Matching Users between Appcues and Mixpanel
 
